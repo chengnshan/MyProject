@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxp.personalmanage.mapper.RoleInfoMapper">
+
+	<resultMap type="com.cxp.personalmanage.pojo.RoleInfo" id="resultMap">
+			<id column="id" property="id"/>
+			<result column="roleid" property="roleId"/>
+			<result column="rolename" property="roleName"/>
+			<result column="enable" property="enable"/>
+			<result column="description" property="description"/>
+			<result column="create_time" property="create_time" />
+			<result column="create_user" property="create_user" />
+			<result column="update_time" property="update_time" />
+			<result column="update_user" property="update_user" />
+	</resultMap>
+
+	<sql id="baseColumn">
+		id,roleid,rolename,description,enable,create_time,create_user,update_time,update_user
+	</sql>
+
+	<!--根据用户名获取对应角色-->
+	<select id="findUserRoleInfoList" parameterType="String" resultMap="resultMap">
+		SELECT b.id,b.roleid,b.rolename,b.description,b.enable,b.create_time,b.create_user,b.update_time,b.update_user
+			FROM user_role_info a ,roleinfo b
+			WHERE a.roleid = b.roleid  AND a.enable = 1
+			  		and a.username = #{userName} 
+	</select>
+	
+	<select id="findRoleList" parameterType="com.cxp.personalmanage.pojo.RoleInfo" resultMap="resultMap">
+		SELECT <include refid="baseColumn"/>
+		FROM roleinfo
+		<where>
+			1=1
+			<if test="roleId !=null and roleId != '' ">
+				and roleid = #{roleId}
+			</if>
+			<if test="roleName !=null and roleName != '' ">
+				and rolename = #{roleName}
+			</if>
+			<if test="id !=null ">
+				and id = #{id}
+			</if>
+		</where>
+	</select>
+	
+</mapper>

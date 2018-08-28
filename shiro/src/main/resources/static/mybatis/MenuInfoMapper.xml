@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxp.personalmanage.mapper.MenuInfoMapper">
+
+    <resultMap type="com.cxp.personalmanage.pojo.MenuInfo" id="baseResultMap">
+        <id column="menuInfoId" property="id"/>
+        <result column="menuId" property="menuId"/>
+        <result column="menuName" property="menuName"/>
+        <result column="menuUrl" property="menuUrl"/>
+        <result column="sort" property="sort"/>
+        <result column="remark" property="remark"/>
+        <result column="classStyle" property="classStyle"/>
+        <result column="parentMenuId" property="parentMenuId" />
+        <result column="enable" property="enable"/>
+        <result column="menu_level" property="menuLevel"/>
+    </resultMap>
+
+    <resultMap type="com.cxp.personalmanage.pojo.MenuInfo" id="resultMap">
+        <id column="menuInfoId" property="id"/>
+        <result column="menuId" property="menuId"/>
+        <result column="menuName" property="menuName"/>
+        <result column="menuUrl" property="menuUrl"/>
+        <result column="sort" property="sort"/>
+        <result column="remark" property="remark"/>
+        <result column="classStyle" property="classStyle"/>
+        <result column="parentMenuId" property="parentMenuId" />
+        <result column="enable" property="enable"/>
+        <result column="menu_level" property="menuLevel"/>
+        <collection property="childrenMenus" ofType="com.cxp.personalmanage.pojo.MenuInfo"
+                    javaType="java.util.List" select="getChildrenMenus" column="menuId">
+
+        </collection>
+    </resultMap>
+
+    <sql id="baseColumn">
+        id menuInfoId,menuid menuId,menuname menuName,menuurl menuUrl,sort,remark
+        ,classStyle classStyle,parent_menuid parentMenuId,menu_level
+    </sql>
+
+    <select id="getMenuInfo" parameterType="com.cxp.personalmanage.pojo.MenuInfo" resultMap="resultMap">
+        SELECT
+        <include refid="baseColumn"/>
+        from menu_info
+        <where>
+            1=1
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="menuId != null and menuId != '' ">
+                and menuid = #{menuId}
+            </if>
+            <if test="menuName != null and menuName != '' ">
+                and menuname = #{menuName}
+            </if>
+            <if test="menuUrl != null and menuUrl != '' ">
+                and menuurl = #{menuUrl}
+            </if>
+            <if test=" parentMenuId != null and parentMenuId != '' ">
+                and parent_menuid = #{parentMenuId}
+            </if>
+            <if test=" menuLevel != null">
+            	and menu_level = #{menuLevel}
+            </if>
+        </where>
+        order by sort asc
+    </select>
+
+    <!--根据角色roleId查询所拥有的菜单-->
+    <select id="findMenuListByRoleId" parameterType="java.util.Map" resultMap="resultMap">
+
+        SELECT a.id menuInfoId,a.menuid menuId,a.menuname menuName,a.menuurl menuUrl
+              ,a.sort,a.remark,a.classstyle classStyle,a.parent_menuid parentMenuId
+        from menu_info a where 1=1 AND a.enable=1 AND a.parent_menuid is null AND a.menuid in  (
+            SELECT DISTINCT a.menuid menuId
+            from menu_info a,role_menu_info b where a.menuid = b.menuid AND a.enable = 1 and b.enable = 1
+                <foreach collection="roleIds" open="and b.roleid in (" separator="," close=")" item="role">
+                    #{role}
+                </foreach>
+        ) order by sort
+    </select>
+    
+    <!-- 根据menuId查询 子菜单 -->
+    <select id="getChildrenMenus" resultMap="baseResultMap" resultType="java.lang.String">
+        SELECT
+        <include refid="baseColumn"/>
+        from menu_info where 1=1 and enable=1 and parent_menuid = #{menuId}
+    </select>
+    
+    <insert id="insertMenuInfo" parameterType="com.cxp.personalmanage.pojo.MenuInfo">
+    	insert into menu_info (menuid,menuname,menuurl,remark,classstyle,sort,parent_menuid,menu_level) 
+    	values 
+    	(#{menuId},#{menuName},#{menuUrl},#{remark},#{classStyle},#{sort},#{parentMenuId},#{menuLevel})
+    </insert>
+    
+</mapper>

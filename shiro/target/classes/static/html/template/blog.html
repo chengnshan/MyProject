@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Blog - Deep Blue Admin</title>
+
+    <link rel="stylesheet" type="text/css" href="../../js/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../js/bootstrap/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../js/bootstrap/css/local.css" />
+
+    <link id="themecss" rel="stylesheet" type="text/css" href="../../../js/bootstrap/css/all.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="../../js/bootstrap/css/theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../js/bootstrap/css/dashboard.css" />
+    <style type="text/css">
+        .alistgroup:hover{
+            cursor: pointer;
+            color: #FF2F2F;
+        }
+    </style>
+ <!--   <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>   -->
+</head>
+<body>
+
+    <div id="wrapper">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">返回主页面</a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav" id="menu_ul">
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right navbar-user">
+                    <li class="dropdown messages-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge">2</span> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">2 New Messages</li>
+                            <li class="message-preview">
+                                <a href="#">
+                                    <span class="avatar"><i class="fa fa-bell"></i></span>
+                                    <span class="message">Security alert</span>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li class="message-preview">
+                                <a href="#">
+                                    <span class="avatar"><i class="fa fa-bell"></i></span>
+                                    <span class="message">Security alert</span>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="#">Go to Inbox <span class="badge">2</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown user-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>
+                            <span class="msg_span"></span><b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                            <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/logout"><i class="fa fa-power-off"></i> Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+      <div class="container" style="border: 0px red solid;width: 97%;">
+          <div class="row">
+              <!-- 选项卡组件（菜单项nav-tabs）-->
+              <ul id="myTab" class="nav nav-tabs" role="tablist">
+                  <li class="active"><a href="#SpringBoot" role="tab" data-toggle="pill">SpringBoot</a></li>
+                  <li><a href="#SpringMVC" role="tab">SpringMVC</a></li>
+                  <li><a href="#Spring" role="tab">Spring</a></li>
+                  <li><a href="#SpringCloud" role="tab">SpringCloud</a></li>
+                  <li><a href="#MQ" role="tab">消息中间件</a></li>
+                  <li><a href="#welfare" role="tab">消息中间件</a></li>
+              </ul>
+              <!-- 选项卡面板 -->
+              <div id="myTabContent" class="tab-content">
+                  <div class="tab-pane fade in active" id="SpringBoot">
+                      <div class="row">
+                          <div class="col-sm-3">
+                              <div class="row">
+                                  <div class="col-xs-12">
+                                  <!--    <h2>SpringBoot</h2>-->
+
+                                      <div class="panel-group" id="myAccordion">
+                                          <div class="panel panel-primary panel-accordion">
+                                              <div class="panel-heading">
+                                                  <h4 class="panel-title">
+                                                      <a href="#panel1" data-toggle="collapse" data-target="#panel1" data-parent="#myAccordion">SpringBoot学习导航</a>
+                                                  </h4>
+                                              </div>
+                                              <div class="panel-collapse collapse in" id="panel1">
+                                                  <div class="panel-body">
+                                                      <ul class="list-group" id="springboot_menu">
+                                                          <li class="list-group-item"><a class="alistgroup" href="../study/SpringBoot/springboot_helloword.html" target="_blank">Spring Boot(一) 入门篇</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="../study/SpringBoot/" target="_blank">Spring Boot(二) Web综合开发</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="../study/SpringBoot/springboot_redis.html" target="_blank">Spring Boot(三) Spring boot中Redis的使用</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="../study/SpringBoot/" target="_blank">Spring Boot(四) 如何优雅的使用mybatis</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="" target="_blank">Spring Boot(五) spring data jpa的使用</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="" target="_blank">Spring Boot(六) +mybatis多数据源最简解决方案</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="" target="_blank">Spring Boot(七) RabbitMQ详解</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="" target="_blank">Spring Boot(八) 定时任务</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="" target="_blank">Spring Boot(九) 邮件服务</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="" target="_blank">Spring Boot(十) 使用Spring Boot上传文件</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="" target="_blank">Spring Boot(十一) springboot整合shiro-登录认证和权限管理</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="../study/SpringBoot/springboot_thymeleaf.html" target="_blank">Spring Boot(十二) thymeleaf使用详解</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="" target="_blank">Spring Boot(十三) springboot如何测试打包部署</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="" target="_blank">Spring Boot(十四) springboot小技巧</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="" target="_blank">Spring Boot(十五) 使用Jenkins部署Spring Boot</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="" target="_blank">Spring Boot(十六) 使用Spring Boot集成FastDFS</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="" target="_blank">Spring Boot(十七) Spring boot中mongodb的使用</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="" target="_blank">Spring Boot(十八) 使用spring-boot-admin对spring-boot服务进行监控</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="" target="_blank">Spring Boot(十九) 使用Spring Boot集成FastDFS</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="" target="_blank">Spring Boot(二十) springboot+jpa+thymeleaf增删改查示例</a></li>
+                                                          <li class="list-group-item"><a class="alistgroup" href="" target="_blank">Spring Boot(二十一) springboot添加HTTPS支持</a></li>
+                                                      </ul>
+                                                  </div>
+                                              </div>
+                                          <!--    <div class="text-center">
+                                                  <a href="#"><i class="fa fa-plus"></i>Full Story</a>
+                                              </div>-->
+                                          </div>
+                                      <hr />
+                                     <!--     <div class="panel panel-primary panel-accordion">
+                                              <div class="panel-heading">
+                                                      <h4 class="panel-title">
+                                                          <a href="#panel2" data-toggle="collapse" data-parent="#myAccordion" data-target="#panel2"> SpringBoot进阶 </a>
+                                                      </h4>
+                                              </div>
+                                              <div class="panel-collapse collapse" id="panel2">
+                                                  <div class="panel-body">
+                                                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.
+                                                  </div>
+                                              </div>
+                                              <div class="text-center">
+                                                  <a href="#"><i class="fa fa-plus"></i>Full Story</a>
+                                              </div>
+                                          </div>
+                                      <hr />
+                                          <div class="panel panel-primary panel-accordion ">
+                                              <div class="panel-heading">
+                                                 <h4 class="panel-title">
+                                                     <a href="#panel3" data-toggle="collapse" data-parent="#myAccordion" data-target="#panel3">SpringBoot高阶</a>
+                                                 </h4>
+                                              </div>
+                                              <div class="panel-collapse collapse" id="panel3">
+                                                  <div class="panel-body">
+                                                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.
+                                                  </div>
+                                              </div>
+                                              <div class="text-center">
+                                                  <a href="#"><i class="fa fa-plus"></i>Full Story</a>
+                                              </div>
+                                          </div>-->
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-sm-9">
+                              <div class="row">
+                                  <div class="col-xs-12">
+                                      <h1 class="MsoNormal">Spring boot 入门篇</h1>
+                                      <h1 style="text-align: left; margin: 0pt; text-autospace: ideograph-numeric; text-indent: 0pt; mso-pagination: widow-orphan; mso-para-margin-right: 0.0000gd; mso-para-margin-left: 0.0000gd; mso-char-indent-count: 0.0000; padding: 0pt;">
+                                          <strong>
+
+                                              <span style="font-size: 16pt; font-family: 仿宋; text-transform: none; font-weight: bold; color: #0047dd;
+                                          font-style: normal; letter-spacing: 0pt; mso-font-kerning: 22.0000pt;">什么是</span>
+                                          </strong><span style="font-size: 16pt; font-family: 仿宋; text-transform: none; font-weight: normal; color: #0047dd;
+                                          font-style: normal; letter-spacing: 0pt; mso-font-kerning: 22.0000pt; ">spring boot</span>
+                                      </h1>
+                                      <p style="font-size: 17px;line-height: 25px;font-family: 仿宋;font-weight: bold;">
+                                          &nbsp;&nbsp;&nbsp;&nbsp;
+                                          Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来简化新Spring应用的初始搭建以及开发过程。
+                                          该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。
+                                          就是spring boot其实不是什么新的框架，它默认配置了很多框架的使用方式，就像maven整合了所有的jar包，spring boot整合了所有的框架。
+                                      </p>
+
+                                      <h1 style="text-align: left; margin: 0pt; text-autospace: ideograph-numeric; text-indent: 0pt; mso-pagination: widow-orphan; mso-para-margin-right: 0.0000gd; mso-para-margin-left: 0.0000gd; mso-char-indent-count: 0.0000; padding: 0pt;"><strong><span style="font-size: 16pt; font-family: 仿宋; text-transform: none; font-weight: bold; color: #0047dd; font-style: normal; letter-spacing: 0pt; mso-font-kerning: 22.0000pt; ">使用</span></strong><span style="font-size: 16pt; font-family: 仿宋; text-transform: none; font-weight: normal; color: #0047dd; font-style: normal; letter-spacing: 0pt; mso-font-kerning: 22.0000pt; ">spring boot</span><strong><span style="font-size: 16pt; font-family: 仿宋; text-transform: none; font-weight: bold; color: #0047dd; font-style: normal; letter-spacing: 0pt; mso-font-kerning: 22.0000pt; ">有什么好处</span></strong></h1>
+                                      <p class="MsoNormal"><span style="font-size: 12pt; font-family: 仿宋; background: #ffffff; text-transform: none; font-weight: normal; color: #000000; font-style: normal; letter-spacing: 0pt; mso-font-kerning: 1.0000pt;  mso-shading: #ffffff;">其实就是简单、快速、方便！平时如果我们需要搭建一个spring web项目的时候需要怎么做呢？</span></p>
+                                      <p class="MsoNormal" style="mso-list: l0 level1 lfo1;"><span style="font-size: 12pt; font-family: 仿宋; background: #ffffff; text-transform: none; font-weight: normal; color: #000000; font-style: normal; letter-spacing: 0pt; mso-font-kerning: 1.0000pt; mso-shading: #ffffff;"><span style="mso-list: ignore;">1）</span></span><span style="font-size: 12pt; font-family: 仿宋; background: #ffffff; text-transform: none; font-weight: normal; color: #000000; font-style: normal; letter-spacing: 0pt; mso-font-kerning: 1.0000pt;  mso-shading: #ffffff;">配置web.xml，加载spring和spring mvc</span></p>
+                                      <p class="MsoNormal" style="mso-list: l0 level1 lfo1;"><span style="font-size: 12pt; font-family: 仿宋; background: #ffffff; text-transform: none; font-weight: normal; color: #000000; font-style: normal; letter-spacing: 0pt; mso-font-kerning: 1.0000pt; mso-shading: #ffffff;"><span style="mso-list: ignore;">2）</span></span><span style="font-size: 12pt; font-family: 仿宋; background: #ffffff; text-transform: none; font-weight: normal; color: #000000; font-style: normal; letter-spacing: 0pt; mso-font-kerning: 1.0000pt;  mso-shading: #ffffff;">配置数据库连接、配置spring事务</span></p>
+                                      <p class="MsoNormal" style="mso-list: l0 level1 lfo1;"><span style="font-size: 12pt; font-family: 仿宋; background: #ffffff; text-transform: none; font-weight: normal; color: #000000; font-style: normal; letter-spacing: 0pt; mso-font-kerning: 1.0000pt; mso-shading: #ffffff;"><span style="mso-list: ignore;">3）</span></span><span style="font-size: 12pt; font-family: 仿宋; background: #ffffff; text-transform: none; font-weight: normal; color: #000000; font-style: normal; letter-spacing: 0pt; mso-font-kerning: 1.0000pt;  mso-shading: #ffffff;">配置加载配置文件的读取，开启注解</span></p>
+                                      <p class="MsoNormal" style="mso-list: l0 level1 lfo1;"><span style="font-size: 12pt; font-family: 仿宋; background: #ffffff; text-transform: none; font-weight: normal; color: #000000; font-style: normal; letter-spacing: 0pt; mso-font-kerning: 1.0000pt; mso-shading: #ffffff;"><span style="mso-list: ignore;">4）</span></span><span style="font-size: 12pt; font-family: 仿宋; background: #ffffff; text-transform: none; font-weight: normal; color: #000000; font-style: normal; letter-spacing: 0pt; mso-font-kerning: 1.0000pt;  mso-shading: #ffffff;">配置日志文件</span></p>
+
+                                      <p class="MsoToc2"><strong><span style="font-size: 14pt; font-family: 仿宋; font-weight: bold; mso-bidi-font-family: 'Times New Roman'; mso-font-kerning: 1.0000pt; mso-ascii-font-family: calibri; mso-hansi-font-family: calibri; ">maven<span style="font-family: 仿宋;">构建项目</span></span></strong></p>
+                                      <p class="MsoNormal" style="mso-list: l1 level1 lfo2;"><span style="font-size: 12pt; font-family: 仿宋; background: #ffffff; text-transform: none; color: #000000; font-style: normal; letter-spacing: 0pt; mso-font-kerning: 1.0000pt; mso-shading: #ffffff;"><span style="mso-list: ignore;">1、</span></span><span style="font-size: 12pt; font-family: 仿宋; background: #ffffff; text-transform: none; color: #000000; font-style: normal; letter-spacing: 0pt; mso-font-kerning: 1.0000pt;  mso-shading: #ffffff;">访问</span><span style="font-size: 12pt; font-family: 仿宋; background: #f7f7f7; text-transform: none; font-weight: normal; color: #333333; font-style: normal; letter-spacing: 0.15pt; mso-font-kerning: 1.0000pt;  mso-shading: #f7f7f7;">http://start.spring.io/</span></p>
+                                      <p class="MsoNormal" style="mso-list: l1 level1 lfo2;"><span style="font-size: 12pt; font-family: 仿宋; text-transform: none; font-weight: normal; color: #333333; font-style: normal; letter-spacing: 0.15pt; mso-font-kerning: 1.0000pt;"><span style="mso-list: ignore;">2、</span></span><span style="font-size: 12pt; font-family: 仿宋; text-transform: none; font-weight: normal; color: #333333; font-style: normal; letter-spacing: 0.15pt; mso-font-kerning: 1.0000pt; ">选择构建工具Maven Project、Spring Boot版本1.3.6以及一些工程基本信息，点击&ldquo;</span><span><a href="http://start.spring.io/" target="_Blank"><span class="15" style="font-size: 12pt; font-family: arial; background: #ffffff; text-transform: none; font-weight: normal; color: #6db33f; font-style: normal; letter-spacing: 0pt; mso-fareast-font-family: 仿宋; mso-shading: #ffffff;">Switch to the full version.</span></a></span><span style="font-size: 12pt; font-family: 仿宋; text-transform: none; font-weight: normal; color: #333333; font-style: normal; letter-spacing: 0.15pt; mso-font-kerning: 1.0000pt; ">&rdquo;java版本选择1.7，可参考下图所示：</span></p>
+                                      <p class="MsoNormal" style="text-align: center;" align="center"><a href="../../image/spring_initializr.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 1px 0px; display: inline; padding-right: 0px; border-width: 0px;" title="springboot1" src="../../image/spring_initializr.png" alt="springboot1" width="760" height="411" border="0" /></a></p>
+                                      <p class="MsoNormal" style="mso-list: l1 level1 lfo2;"><span style="font-size: 12pt; font-family: 仿宋; text-transform: none; font-weight: normal; color: #333333; font-style: normal; letter-spacing: 0.15pt; mso-font-kerning: 1.0000pt;"><span style="mso-list: ignore;">3、</span></span><span style="font-size: 12pt; font-family: 仿宋; text-transform: none; font-weight: normal; color: #333333; font-style: normal; letter-spacing: 0.15pt; mso-font-kerning: 1.0000pt; ">点击Generate Project下载项目压缩包</span></p>
+                                      <p class="MsoNormal" style="mso-list: l1 level1 lfo2;"><span style="font-size: 12pt; font-family: 仿宋; text-transform: none; font-weight: normal; color: #333333; font-style: normal; letter-spacing: 0.15pt; mso-font-kerning: 1.0000pt;"><span style="mso-list: ignore;">4、</span></span><span style="font-size: 12pt; font-family: 仿宋; text-transform: none; font-weight: normal; color: #333333; font-style: normal; letter-spacing: 0.15pt; mso-font-kerning: 1.0000pt; ">解压后，使用eclipse，Import -&gt; Existing Maven Projects -&gt; Next -&gt;选择解压后的文件夹-&gt; Finsh，OK done!</span></p>
+                                      <p class="MsoNormal">&nbsp;</p>
+
+                                      <p class="MsoToc2"><strong><span style="font-size: 14pt; font-family: 仿宋; font-weight: bold; mso-bidi-font-family: 'Times New Roman'; mso-font-kerning: 1.0000pt; mso-ascii-font-family: calibri; mso-hansi-font-family: calibri; ">项目结构介绍</span></strong></p>
+                                      <p class="MsoNormal" style="text-align: center;" align="center"><span style="font-size: 12pt; font-family: 仿宋; text-transform: none; font-weight: normal; color: #333333; font-style: normal; letter-spacing: 0.15pt; mso-font-kerning: 1.0000pt; "><a href="../../image/eclipse_springboot.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 1px 0px; display: inline; padding-right: 0px; border-width: 0px;" title="springboot2" src="../../image/eclipse_springboot.png" alt="springboot2" width="760" height="417" border="0" /></a></span></p>
+                                      <p class="MsoNormal">&nbsp;</p>
+                                      <p class="MsoNormal"><span style="font-size: 12pt; font-family: 仿宋; background: #ffffff; text-transform: none; font-weight: normal; color: #333333; font-style: normal; letter-spacing: 0.15pt; mso-font-kerning: 1.0000pt; mso-shading: #ffffff;">如上图所示，Spring Boot的基础结构共三个文件</span><span style="font-size: 12pt; font-family: 仿宋; background: #ffffff; text-transform: none; font-weight: normal; color: #333333; font-style: normal; letter-spacing: 0.15pt; mso-font-kerning: 1.0000pt;  mso-shading: #ffffff;">:</span></p>
+                                      <p class="MsoNormal" style="margin-left: 21pt; text-indent: -21pt; mso-para-margin-left: 0.0000gd; mso-char-indent-count: 0.0000; mso-list: l2 level1 lfo3;"><span style="font-size: 12pt; font-family: wingdings; background: #ffffff; text-transform: none; font-weight: normal; color: #333333; font-style: normal; letter-spacing: 0.15pt; mso-fareast-font-family: 仿宋; mso-bidi-font-family: 仿宋; mso-font-kerning: 1.0000pt; mso-shading: #ffffff;"><span style="mso-list: ignore;">l<span>&nbsp;</span></span></span><span style="font-size: 12pt; font-family: 仿宋; background: #ffffff; text-transform: none; font-weight: normal; color: #333333; font-style: normal; letter-spacing: 0.15pt; mso-font-kerning: 1.0000pt;  mso-shading: #ffffff;">src/main/java&nbsp; 程序开发以及主程序入口</span></p>
+                                      <p class="MsoNormal" style="margin-left: 21pt; text-indent: -21pt; mso-para-margin-left: 0.0000gd; mso-char-indent-count: 0.0000; mso-list: l2 level1 lfo3;"><span style="font-size: 12pt; font-family: wingdings; background: #ffffff; text-transform: none; font-weight: normal; color: #333333; font-style: normal; letter-spacing: 0.15pt; mso-fareast-font-family: 仿宋; mso-bidi-font-family: 仿宋; mso-font-kerning: 1.0000pt; mso-shading: #ffffff;"><span style="mso-list: ignore;">l<span>&nbsp;</span></span></span><span style="font-size: 12pt; font-family: 仿宋; background: #ffffff; text-transform: none; font-weight: normal; color: #333333; font-style: normal; letter-spacing: 0.15pt; mso-font-kerning: 1.0000pt;  mso-shading: #ffffff;">src/main/resources 配置文件</span></p>
+                                      <p class="MsoNormal" style="margin-left: 21pt; text-indent: -21pt; mso-para-margin-left: 0.0000gd; mso-char-indent-count: 0.0000; mso-list: l2 level1 lfo3;"><span style="font-size: 12pt; font-family: wingdings; background: #ffffff; text-transform: none; font-weight: normal; color: #333333; font-style: normal; letter-spacing: 0.15pt; mso-fareast-font-family: 仿宋; mso-bidi-font-family: 仿宋; mso-font-kerning: 1.0000pt; mso-shading: #ffffff;"><span style="mso-list: ignore;">l<span>&nbsp;</span></span></span><span style="font-size: 12pt; font-family: 仿宋; background: #ffffff; text-transform: none; font-weight: normal; color: #333333; font-style: normal; letter-spacing: 0.15pt; mso-font-kerning: 1.0000pt;  mso-shading: #ffffff;">src/test/java&nbsp; 测试程序</span></p>
+
+
+                                  </div>
+                              </div>
+                              <hr />
+
+                              <hr />
+
+                          </div>
+                      </div>
+                  </div>
+                  <div class="tab-pane fade" id="SpringMVC">
+                      <div class="row">
+                          <div class="col-sm-3">
+                              <div class="row">
+                                  <div class="col-xs-12">
+                                      <h2>Side</h2>
+                                      <div class="panel panel-default">
+                                          <div class="panel-heading">News</div>
+                                          <div class="panel-body">
+                                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.
+                                          </div>
+                                          <div class="text-center">
+                                              <a href="#"><i class="fa fa-plus"></i>Full Story</a>
+                                          </div>
+                                      </div>
+                                      <hr />
+                                      <div class="panel panel-default">
+                                          <div class="panel-heading">News</div>
+                                          <div class="panel-body">
+                                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.
+                                          </div>
+                                          <div class="text-center">
+                                              <a href="#"><i class="fa fa-plus"></i>Full Story</a>
+                                          </div>
+                                      </div>
+                                      <hr />
+                                      <div class="panel panel-default">
+                                          <div class="panel-heading">News</div>
+                                          <div class="panel-body">
+                                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.
+                                          </div>
+                                          <div class="text-center">
+                                              <a href="#"><i class="fa fa-plus"></i>Full Story</a>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-sm-9">
+                              <div class="row">
+                                  <div class="col-xs-12">
+                                      <h2>Article Title</h2>
+                                      <p>
+                                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.
+                                          Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis
+                                          dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan.
+                                          Aliquam in felis sit amet augue.
+                                      </p>
+                                      <div class="text-center">
+                                          <a href="#"><i class="fa fa-plus"></i>Full Story</a>
+                                          <a href="#"><i class="fa fa-comment"></i>12 Comments</a>
+                                          <a href="#"><i class="fa fa-share"></i>11 Shares</a>
+                                      </div>
+                                  </div>
+                              </div>
+                              <hr />
+                              <div class="row">
+                                  <div class="col-xs-12">
+                                      <h2>Article Title</h2>
+                                      <p>
+                                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.
+                                          Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis
+                                          dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan.
+                                          Aliquam in felis sit amet augue.
+                                      </p>
+                                      <div class="text-center">
+                                          <a href="#"><i class="fa fa-plus"></i>Full Story</a>
+                                          <a href="#"><i class="fa fa-comment"></i>2 Comments</a>
+                                          <a href="#"><i class="fa fa-share"></i>211 Shares</a>
+                                      </div>
+                                  </div>
+                              </div>
+                              <hr />
+                              <div class="row">
+                                  <div class="col-xs-12">
+                                      <h2>Article Title</h2>
+                                      <p>
+                                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.
+                                          Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis
+                                          dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan.
+                                          Aliquam in felis sit amet augue.
+                                      </p>
+                                      <div class="text-center">
+                                          <a href="#"><i class="fa fa-plus"></i>Full Story</a>
+                                          <a href="#"><i class="fa fa-comment"></i>7 Comments</a>
+                                          <a href="#"><i class="fa fa-share"></i>67 Shares</a>
+                                      </div>
+                                  </div>
+                              </div>
+                              <hr />
+
+                              <!-- the comment box -->
+                              <div class="well">
+                                  <h4>Leave a Comment:</h4>
+                                  <form role="form">
+                                      <div class="form-group">
+                                          <textarea class="form-control" rows="3"></textarea>
+                                      </div>
+                                      <button type="submit" class="btn btn-primary">Submit</button>
+                                  </form>
+                              </div>
+
+                              <hr/>
+
+                              <!-- the comments -->
+                              <h3>Blog contents
+                                  <small>2014/03/07 11:43 PM</small>
+                              </h3>
+                              <p>This is a very interesting blog, well structured and organized. Would be great if you included more information on other IT topics as well.</p>
+
+                              <h3>Contacts
+                                  <small>2014/03/09 12:11 PM</small>
+                              </h3>
+                              <p>I wanted to get in touch with the author of the blog, but I see no way to do this.</p>
+
+                          </div>
+                      </div>
+                  </div>
+                  <div class="tab-pane fade" id="Spring">论坛内容面板</div>
+                  <div class="tab-pane fade" id="SpringCloud">安全内容面板</div>
+                  <div class="tab-pane fade" id="MQ">消息中间件</div>
+                  <div class="tab-pane fade" id="welfare">
+                      <iframe src="../study/SpringBoot/uploadDown.html" width="1350px" height="800px"></iframe>
+                  </div>
+              </div>
+          </div>
+
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript"
+        data-main="../../js/myjs/blog.js"
+        src="../../js/common/require.js"></script>
+</html>

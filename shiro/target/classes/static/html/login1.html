@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+	<title>用户登录</title>
+<link rel="stylesheet" type="text/css" href="../js/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="../js/style/css/style.css" />
+<link rel="stylesheet" type="text/css" href="../js/style/css/body.css"/>
+<link rel="stylesheet" type="text/css" href="../js/common/slideunlock/slide-unlock.css" />
+
+	<script type="text/javascript" src="../js/common/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/common/slideunlock/jquery.slideunlock.js"></script>
+	<script type="text/javascript">
+        $(function(){
+        	
+        	 var slider = new SliderUnlock("#slider",{
+	 	            successLabelTip : "验证成功！"   
+	 	        },function(){
+	 	           $("#submit").attr("successLabe","true")
+	 	            
+	 	        });
+ 	    	slider.init();
+
+            $("#submit").click(function(){
+                var username =$("#userName").val();
+                var password =$("#password").val();
+                var randomcode = $("#randomcode").val();
+                if( !username ||  !password || !randomcode ){
+                    alert("请求输入用户名或者密码、验证码!");
+                    return false;
+                }
+                if ( $("#submit").attr("successLabe") == "false" || $("#submit").attr("successLabe") == undefined){
+    				alert('请拖动验证！');
+    				return false;
+    			}
+
+                var data=$.param({date:new Date()}) +'&' + $("#formabc").serialize();
+                $.ajax({
+                    url:'../login',
+                    data: data,
+                    dataType:'json',
+                    contentType:"application/x-www-form-urlencoded",
+                    success:function(data){
+                        console.log(data.msg);
+                        if(data.status == '200'){
+                            window.location.href = data.msg;
+                        }else{
+                            $("#msgH3").text(data.msg);
+                        }
+                    }
+                });
+            });
+        });
+
+        document.onkeydown = function(e) {
+            // 兼容FF和IE和Opera
+            var theEvent = e || window.event;
+            var code = theEvent.keyCode || theEvent.which || theEvent.charCode;//获取键盘code值
+            if (code == 13) {  //如果是回车键
+                //Ext按钮的Click事件触发
+				document.getElementById("submit").click();
+                return false;
+            }
+            return true;
+        }
+	</script>
+</head>
+<body>
+<div class="container">
+	<section id="content">
+		<form action="" method="" id="formabc">
+			<h1>用户登录</h1>
+			<div>
+				<input type="text" placeholder="用户名" required="" id="userName" name="userName"/>
+			</div>
+			<br />
+			<!--下面是密码输入框-->
+			<div class="">
+				<input type="password" placeholder="密码" required="" id="password" name="password" />
+			</div>
+			<br />
+			<div class="input-group">
+				<input type="text" class="" placeholder="验证码" required="" id="randomcode" name="randomcode" style="width: 100%;"/>
+				<!-- <img alt="这是图片" src="/img/001.png"/> -->
+				<span class="input-group-btn"  style="height:100%;" >
+					<img alt="验证码" onclick="this.src='/defaultKaptcha?d='+new Date()*1" src="/defaultKaptcha"
+						 style="height: 115%;border: 0px red solid;margin-top: -10px;"/>
+				</span>
+			</div>
+			<div class="input-group">
+				<div id="slider" class="" style="">
+				    <div id="slider_bg"></div>
+				    <span id="label">>></span> <span id="labelTip">拖动滑块验证</span> 
+				 </div>
+			</div>
+			<div class="">
+				<!-- <input type="submit" value="Log in" /> -->
+				<input type="button" value="登录" class="btn btn-primary" id="submit"/>
+				<a href="#">忘记密码?</a>
+				<h4 id="msgH3" style="color:red;font-size:14px;" class="text-center"></h4>
+			</div>
+
+		</form><!-- form -->
+
+	</section><!-- content -->
+</div>
+
+<br><br><br><br>
+</body>
+</html>

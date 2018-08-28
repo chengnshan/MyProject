@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxp.personalmanage.mapper.UserRoleInfoMapper">
+
+    <resultMap type="com.cxp.personalmanage.pojo.UserRoleInfo" id="baseResultMap">
+        <id column="id" property="id"/>
+        <result column="roleid" property="roleId"/>
+        <result column="username" property="userName"/>
+        <result column="enable" property="enable"/>
+        <result column="create_time" property="create_time" />
+        <result column="create_user" property="create_user" />
+        <result column="update_time" property="update_time" />
+        <result column="update_user" property="update_user" />
+    </resultMap>
+
+    <sql id="baseColumn">
+        id,roleid,username,enable,create_time,create_user,update_time,update_user
+    </sql>
+    
+    <insert id="insertUserRoleInfo" parameterType="com.cxp.personalmanage.pojo.UserRoleInfo">
+        INSERT INTO user_role_info (roleid,username) VALUES (#{roleId},#{userName})
+    </insert>
+    
+    <insert id="batchInsertUserRole" parameterType="java.util.List">
+    	insert into user_role_info (roleid,username,create_time,create_user,update_time,update_user) values 
+    	<foreach collection="list" item="role" separator=",">
+    		(#{role.roleId},#{role.userName},#{role.create_time},#{role.create_user},#{role.update_time},#{role.update_user})
+    	</foreach>
+    </insert>
+
+    <!--根据用户名更新-->
+    <update id="updateUserRoleInfo" parameterType="com.cxp.personalmanage.pojo.UserRoleInfo">
+        update user_role_info
+        <set>
+            <if test="roleId!=null and roleId != '' ">
+                roleId = #{roleId},
+            </if>
+            <if test="userName!=null and userName != '' ">
+                userName = #{userName},
+            </if>
+            <if test="enable != null">
+                enable = #{enable},
+            </if>
+        </set>
+         where userName = #{userName}
+    </update>
+    
+    <select id="findUserRoleByUserName" resultMap="baseResultMap" parameterType="com.cxp.personalmanage.pojo.UserRoleInfo">
+    	select <include refid="baseColumn"/> 
+    	from user_role_info 
+    	<where>
+    	 1=1
+    	 	<if test="userName != null and userName != '' ">
+    	 		and username = #{userName}
+    	 	</if>
+    	 	<if test="roleId != null and roleId != '' ">
+    	 		and roleid = #{roleId}
+    	 	</if>
+    	</where>
+    </select>
+
+	<delete id="deleteUserRoleInfo" parameterType="java.lang.String">
+		delete from user_role_info where userName = #{userName}
+	</delete>
+</mapper>

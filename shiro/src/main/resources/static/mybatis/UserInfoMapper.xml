@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxp.personalmanage.mapper.UserInfoMapper">
+
+	<resultMap type="com.cxp.personalmanage.pojo.UserInfo" id="baseResultMap">
+		<id column="id" property="id" />
+		<result column="username" property="userName" />
+		<result column="password" property="password" />
+		<result column="salt" property="salt" />
+		<result column="realname" property="realName" />
+		<result column="enable" property="enable"/>
+		<result column="create_time" property="create_time" />
+		<result column="create_user" property="create_user" />
+		<result column="update_time" property="update_time" />
+		<result column="update_user" property="update_user" />
+        <collection property="roleList" ofType="com.cxp.personalmanage.pojo.RoleInfo"
+                    javaType="java.util.ArrayList" column="username"
+                    select="com.cxp.personalmanage.mapper.RoleInfoMapper.findUserRoleInfoList">
+        </collection>
+	</resultMap>
+
+	<resultMap type="com.cxp.personalmanage.pojo.UserInfo" id="UserInfoBaseMap">
+		<id column="id" property="id" />
+		<result column="username" property="userName" />
+		<result column="password" property="password" />
+		<result column="salt" property="salt" />
+		<result column="realname" property="realName" />
+		<result column="enable" property="enable"/>
+		<result column="create_time" property="create_time" />
+		<result column="create_user" property="create_user" />
+		<result column="update_time" property="update_time" />
+		<result column="update_user" property="update_user" />
+		<collection property="roleList" ofType="com.cxp.personalmanage.pojo.RoleInfo" javaType="java.util.ArrayList">
+			<id column="roleinfo_id" property="id"/>
+			<result column="roleid" property="roleId"/>
+			<result column="rolename" property="roleName"/>
+			<result column="enable" property="enable"/>
+			<result column="description" property="description"/>
+			<result column="r_create_time" property="create_time" />
+			<result column="r_create_user" property="create_user" />
+			<result column="r_update_time" property="update_time" />
+			<result column="r_update_user" property="update_user" />
+		</collection>
+	</resultMap>
+
+	<sql id="baseColumn">
+		id,username,password,salt,realname,enable,create_time,create_user,update_time,update_user
+	</sql>
+
+    <sql id="page_conditionn_limit">
+        <if test="(pageSize != null and pageSize >0) and (pageRow != null and pageRow >=0)">
+            limit #{pageSize} offset #{pageRow}
+        </if>
+    </sql>
+
+	<select id="getUserInfo" parameterType="com.cxp.personalmanage.pojo.UserInfo" resultMap="baseResultMap">
+		select <include refid="baseColumn"/> 
+		from userinfo
+		where 1=1  
+			<if test="userName != null and userName != '' ">
+				and username = #{userName}
+			</if>
+			<if test="enable != null ">
+				and enable = #{enable}
+			</if>
+			<if test="id != null ">
+				and id = #{id}
+			</if>
+	</select>
+	
+	<select id="getUserInfoByUserName" parameterType="com.cxp.personalmanage.pojo.UserInfo" resultMap="baseResultMap">
+		select <include refid="baseColumn"/> 
+		from userinfo 
+		where 1=1  and username = #{userName}
+	</select>
+
+	<select id="findUserInfoList" parameterType="java.util.Map" resultMap="baseResultMap">
+		SELECT distinct a.username,a.id,a.password,a.salt,a.realname,a.enable,a.create_time,a.create_user,a.update_time,a.update_user
+	<!--  ,c.id "roleinfo_id",c.roleid,c.rolename,c.description
+        ,c.create_time "r_create_time",c.create_user "r_create_user"
+        ,c.update_time "r_update_time",c.update_user "r_update_user"    -->
+			from userinfo a left join user_role_info b on  a.username = b.username
+                left join roleinfo c on  b.roleid = c.roleid
+			where 1=1 and a.enable = 1
+			<if test="userName != null and userName != '' ">
+                <bind name="userNameLike" value="'%' + userName + '%'" />
+				 and a.username LIKE #{userNameLike}
+			</if>
+            <if test="realName != null and realName != '' ">
+                <bind name="realNameLike" value="'%' + realName + '%'" />
+                and a.realname LIKE #{realNameLike}
+            </if>
+			<if test="roleId != null and roleId != '' ">
+				and c.roleid = #{roleId}
+			</if>
+			<if test="uid != null">
+				and a.id = #{uid}
+			</if>
+			order by a.update_time desc 
+            <include refid="page_conditionn_limit"></include>
+            
+	</select>
+    
+    <select id="findUserInfoListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(distinct a.username)
+            from userinfo a left join user_role_info b on  a.username = b.username
+              left join roleinfo c on  b.roleid = c.roleid
+              where 1=1 and a.enable = 1
+		<if test="userName != null and userName != '' ">
+                <bind name="userNameLike" value="'%' + userName + '%'" />
+                and a.username LIKE #{userNameLike}
+            </if>
+            <if test="realName != null and realName != '' ">
+                <bind name="realNameLike" value="'%' + realName + '%'" />
+                and a.realname LIKE #{realNameLike}
+            </if>
+            <if test="roleId != null and roleId != '' ">
+                and c.roleid = #{roleId}
+            </if>
+            <if test="uid != null">
+                and a.id = #{uid}
+            </if>
+    </select>
+
+	<!--添加单个用户-->
+	<insert id="saveUserInfo" parameterType="com.cxp.personalmanage.pojo.UserInfo">
+		insert into userinfo (username,password,realname,salt,create_user,create_time,update_user,update_time) values 
+		(#{userName},#{password},#{realName},#{salt},#{create_user},#{create_time},#{update_user},#{update_time})
+	</insert>
+
+	<!--批量添加用户-->
+	<insert id="bathSaveUserInfo" parameterType="java.util.List">
+		insert into userinfo (username,password,realname,salt,create_user,create_time,update_user,update_time) values
+		<foreach collection="list" item="userInfoObj" index="index" separator=",">
+			(#{userInfoObj.userName},#{userInfoObj.password},#{userInfoObj.realName},
+			#{userInfoObj.salt},#{userInfoObj.create_user},#{userInfoObj.create_time},
+			#{userInfoObj.update_user},#{userInfoObj.update_time})
+		</foreach>
+	</insert>
+
+	<delete id="deleteUserInfo" parameterType="String">
+		DELETE  from userinfo where username = #{userName} 
+	</delete>
+	
+	<update id="updateUserInfo" parameterType="com.cxp.personalmanage.pojo.UserInfo">
+		update userinfo
+		<set>
+			<if test=" userName != null and userName != '' ">
+				username = #{userName} ,
+			</if>
+			<if test=" realName != null and realName != '' ">
+				realname = #{realName},
+			</if>
+			<if test=" password != null and password != '' ">
+				password = #{password},
+			</if>
+			<if test=" salt != null and salt != '' ">
+				salt = #{salt},
+			</if>
+			<if test=" enable != null ">
+				enable = #{enable},
+			</if>
+			<if test=" create_user != null and create_user != ''">
+				create_user = #{create_user},
+			</if>
+			<if test=" update_user != null and update_user !='' ">
+				update_user = #{update_user},
+			</if>
+			<if test=" create_time != null ">
+				create_time = #{create_time},
+			</if>
+			<if test=" update_time != null  ">
+				update_time = #{update_time},
+			</if>
+		</set>
+			where username = #{userName}
+
+	</update>
+
+</mapper>
